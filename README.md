@@ -11,12 +11,10 @@ A scrollable view that supports snapping.
 ### Usage
 ```swift
 SnappingScrollView(.vertical) {
-    VStack {
-        //Header view
-            .snappingScrollAnchor(.bounds)
+    //Header view
+        .snappingScrollAnchor(.bounds)
             
-        //Content views
-    }
+    //Content views
 }
 ```
 
