@@ -26,7 +26,7 @@ SnappingScrollView(.vertical) {
 
 ## snappingScrollAnchor
 
-A function that sets the scroll snapping anchor rect for this view.
+A function that sets the scroll snapping anchor rect for a view.
 
 Avoid setting the scroll snapping anchor rect on a child of a lazy view, such as a `LazyHGrid`, `LazyVGrid`, `LazyHStack` or `LazyVStack`.
 
