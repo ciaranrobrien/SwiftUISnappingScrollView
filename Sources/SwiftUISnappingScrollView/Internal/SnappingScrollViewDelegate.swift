@@ -30,7 +30,7 @@ internal class SnappingScrollViewDelegate: NSObject, ObservableObject, UIScrollV
                                    targetContentOffset: UnsafeMutablePointer<CGPoint>)
     {
         //Prevent large navigation title from interfering with target offset
-        if (targetContentOffset.pointee.y <= -naturalInset!.top && velocity.y != 0) {
+        if (targetContentOffset.pointee.y <= -naturalInset!.top && scrollView.alwaysBounceVertical) {
             return
         }
         
@@ -41,12 +41,7 @@ internal class SnappingScrollViewDelegate: NSObject, ObservableObject, UIScrollV
         let minY = -scrollView.contentInset.top
         let maxY = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.frame.height
         
-        let localFrames = frames.map { frame in
-            CGRect(x: frame.minX + minX,
-                   y: frame.minY + minY,
-                   width: frame.width,
-                   height: frame.height)
-        }
+        let localFrames = frames.map { $0.offsetBy(dx: minX, dy: minY) }
         
         targetOffset.x = localFrames
             .reduce([PointRange(start: minX, end: maxX)]) { values, frame in

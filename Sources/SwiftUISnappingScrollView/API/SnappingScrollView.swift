@@ -28,10 +28,26 @@ where Content : View
                         .onAppear { delegate.frames = frames }
                         .onUpdate(of: frames) { delegate.frames = $0 }
                 }
+                .hidden()
             }
             .transformPreference(AnchorsKey.self) { $0 = AnchorsKey.defaultValue }
-            .background(UIScrollViewBridge(decelerationRate: decelerationRate.rate, delegate: delegate, frame: $frame))
+            .background(UIScrollViewBridge(decelerationRate: decelerationRate.rate, delegate: delegate))
         }
+        .background(
+            GeometryReader { geometry in
+                Color.clear
+                    .onAppear {
+                        DispatchQueue.main.async {
+                            if frame == nil {
+                                frame = geometry.frame(in: .global)
+                            }
+                        }
+                    }
+                    .onUpdate(of: geometry.frame(in: .global)) { frame = $0 }
+            }
+            .ignoresSafeArea()
+            .hidden()
+        )
     }
     
     @StateObject private var delegate = SnappingScrollViewDelegate()

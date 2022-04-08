@@ -9,7 +9,6 @@ import SwiftUI
 internal struct UIScrollViewBridge: UIViewRepresentable {
     var decelerationRate: UIScrollView.DecelerationRate
     var delegate: UIScrollViewDelegate
-    @Binding var frame: CGRect?
     
     func makeUIView(context: Context) -> UIView {
         let view = UIView()
@@ -24,8 +23,6 @@ internal struct UIScrollViewBridge: UIViewRepresentable {
                 scrollView.decelerationRate = decelerationRate
                 scrollView.delegate = delegate
                 
-                frame = scrollView.superview?.convert(scrollView.frame, to: nil)
-                
                 //Prevent SwiftUI from reverting deceleration rate
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     scrollView.decelerationRate = decelerationRate
@@ -38,9 +35,13 @@ internal struct UIScrollViewBridge: UIViewRepresentable {
 
 private extension UIView {
     func parentScrollView() -> UIScrollView? {
+        if let scrollView = self as? UIScrollView {
+            return scrollView
+        }
+        
         if let superview = superview {
             for subview in superview.subviews {
-                if let scrollView = subview as? UIScrollView {
+                if subview != self, let scrollView = subview as? UIScrollView {
                     return scrollView
                 }
             }
