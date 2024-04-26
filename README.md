@@ -2,7 +2,8 @@
 
 Add snapping behaviour to a SwiftUI ScrollView.
 
-![Demo](./Resources/Demo.gif "Demo")
+> [!WARNING]
+> This package is no longer maintained. Use [scrollTargetBehaviour](https://developer.apple.com/documentation/swiftui/view/scrolltargetbehavior(_:)) instead.
 
 ## SnappingScrollView
 
@@ -53,7 +54,7 @@ SnappingScrollView(.horizontal, decelerationRate: .fast) {
 
 ## Requirements
 
-* iOS 13.0+
+* iOS 14.0+
 * Xcode 12.0+
 
 ## Installation
