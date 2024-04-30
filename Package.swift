@@ -11,7 +11,7 @@ import PackageDescription
 let package = Package(
     name: "SwiftUISnappingScrollView",
     platforms: [
-        .iOS(.v13)
+        .iOS(.v14)
 //        .macCatalyst(.v14),
 //        .macOS(.v11),
 //        .tvOS(.v14),
